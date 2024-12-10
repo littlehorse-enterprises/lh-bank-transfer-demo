@@ -1,14 +1,16 @@
 # Bank Transfer Workflow
+
 ## Information
+
 In this workflow we will simulate a simple bank transfer.  
 
 The steps of the workflow are as follows:
+
 1) validate that the data sent contains the necessary information to complete a transfer.
 2) Check for a valid From account.
 3) Check for a valid To account.
 4) If the transfer is greater than $50,000 wait for a human to approve
 5) after the transfer is initiated every 10second check to verify that the transfer has completed successfully or has failed.
-
 
 ## Setup
 
@@ -19,11 +21,17 @@ The steps of the workflow are as follows:
 3. run `./gradlew run --args register` to register the `TaskDefs` and `WfSpec` in LittleHorse
 
 ### Starting Task Workers
+
 #### Running with Docker
+
 ##### Build the docker image
+
 ```docker build -t littlehorse/demo-bank-transfer .```
+
 ##### run the docker image
+
 ```docker run --network host -d littlehorse/demo-bank-transfer```
+
 #### Running without Docker
 
 Run the following commands in different terminals to start the task workers:
@@ -57,4 +65,3 @@ lhctl run initiate-transfer transferDetails '{
         "description": "1234 to 4564"
 }'
 ```
-
