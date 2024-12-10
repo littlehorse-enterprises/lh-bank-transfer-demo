@@ -1,0 +1,51 @@
+# Ignore binary and build stuff
+.gradle
+examples/*/build/
+examples/*/bin/
+*/build/
+*/bin/
+
+# Emacs-related stuff
+*\#
+*~
+
+# node
+node_modules/
+
+# go
+lhctl/lhctl
+
+# Intellij
+*/.idea
+.idea/
+
+# vscode
+.vscode/launch.json
+*.code-workspace
+.vscode/
+#Visual Studio
+**/bin/
+**/obj/
+**/.vs/
+**/out/
+
+# Others
+local-dev/certs/
+build/
+.config
+*.pem
+
+# Python
+__pycache__
+.ruff_cache
+.mypy_cache
+dist/
+
+.DS_Store
+*.work
+
+# dotnet
+global.json
+*DotSettings.user
+!sdk-dotnet/Littlehorse.sln
+*.sln
