@@ -35,7 +35,7 @@ public class transferStore {
         // Generate a unique UUID for this transaction
         UUID transactionId = UUID.randomUUID();
         transaction.put("transferId", transactionId);
-        // DON"T SHOW THIS IN THE getTransaction
+        // Don't THIS IN THE getTransaction
         transaction.put("completeTime", completeTime);
         transactions.put(transactionId, transaction);
         return transactionId;

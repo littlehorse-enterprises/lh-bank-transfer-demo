@@ -37,6 +37,7 @@ public class accountStore {
     }
 
     public JSONObject queryByField(String field, Object value) {
+
         for (JSONObject doc : documents) {
             if (value.equals(doc.opt(field))) {
                 return doc;

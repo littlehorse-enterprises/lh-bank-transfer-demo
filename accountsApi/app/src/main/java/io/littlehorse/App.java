@@ -4,6 +4,7 @@
 package io.littlehorse;
 
 import io.javalin.Javalin;
+import java.util.Random;
 import java.util.UUID;
 import org.json.JSONObject;
 
@@ -29,6 +30,13 @@ public class App {
             ctx.result(acctStore.toString());
         });
         app.get("/account/{id}", ctx -> {
+            // Failure this for demo purposes 1/5th of the time.
+            // The exception is handled in the workflow code .
+            Random random = new Random();
+            if (random.nextInt(0, 5) == 0) {
+                ctx.status(500);
+                ctx.result("Internal Server Error");
+            }
             if (acctStore.queryByField("accountId", ctx.pathParam("id")) != null) {
                 ctx.result(
                         acctStore.queryByField("accountId", ctx.pathParam("id")).toString());
