@@ -49,7 +49,13 @@ public class TransferWorkflow {
         WfRunVariable toAccount = wf.addVariable("to-account", VariableType.JSON_OBJ);
 
         // Fetch fromAccount and check if it's valid
-        NodeOutput fromAccountOutput = wf.execute("fetch-account", transferDetails.jsonPath("$.fromAccountId"));
+        NodeOutput fromAccountOutput = wf.execute("fetch-account", transferDetails.jsonPath("$.fromAccountId"))
+                .withRetries(100)
+                .withExponentialBackoff(ExponentialBackoffRetryPolicy.newBuilder()
+                        .setBaseIntervalMs(100)
+                        .setMultiplier(2.0f)
+                        .setMaxDelayMs(1000)
+                        .build());
         wf.mutate(fromAccount, VariableMutationType.ASSIGN, fromAccountOutput);
         wf.doIf(wf.condition(fromAccount.jsonPath("$.accountStatus"), Comparator.NOT_EQUALS, "ACTIVE"), handler -> {
             handler.throwEvent(
@@ -61,7 +67,13 @@ public class TransferWorkflow {
         });
 
         // Fetch toAccountId and check if it's valid
-        NodeOutput toAccountOutput = wf.execute("fetch-account", transferDetails.jsonPath("$.toAccountId"));
+        NodeOutput toAccountOutput = wf.execute("fetch-account", transferDetails.jsonPath("$.toAccountId"))
+                .withRetries(100)
+                .withExponentialBackoff(ExponentialBackoffRetryPolicy.newBuilder()
+                        .setBaseIntervalMs(100)
+                        .setMultiplier(2.0f)
+                        .setMaxDelayMs(1000)
+                        .build());
         wf.mutate(toAccount, VariableMutationType.ASSIGN, toAccountOutput);
         wf.doIf(wf.condition(toAccount.jsonPath("$.accountStatus"), Comparator.NOT_EQUALS, "ACTIVE"), handler -> {
             handler.throwEvent(
